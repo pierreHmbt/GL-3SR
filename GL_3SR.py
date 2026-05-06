@@ -16,7 +16,7 @@ class FGL_3SR:
         self.alpha = alpha
         self.gamma = gamma
 
-        "Values on constraints"
+        # Values on constraints
         self.trace = trace
 
         "Initial guess"
@@ -24,16 +24,16 @@ class FGL_3SR:
         self.lbd0 = lbd0
         self.H0 = H0
 
-        "Values on variables of the algorithms"
+        # Values on variables of the algorithms
         self.maxit = maxit
         self.cv_crit = cv_crit
 
-        "Variables of interest"
+        # Variables of interest
         self.H = None
         self.X = None
         self.lbd = None
 
-        "Error sequence"
+        # Error sequence
         self.err = []
         self.keep_best = keep_best
 
@@ -59,7 +59,7 @@ class FGL_3SR:
                 sys.stdout.write('\r {} %'.format(
                     np.around(100. * it / self.maxit, 2)))
 
-            "H update"
+            # H update
             H_old = np.array(self.H)
             if norm == 'l0':
                 "norm 0 in Lagrangian form"
@@ -72,11 +72,11 @@ class FGL_3SR:
                 self.H = self.solve_H1_closedform(Y, p, n)
             self.err.append((self.f_obj(Y)))
 
-            "X update"
+            # X update
             self.X = self.solve_X_relaxation(Y, p)
             self.err.append((self.f_obj(Y)))
 
-            "Lambda update"
+            # Lambda update
             self.lbd = self.solve_lbd(I_p)
             self.lbd[0] = 0.
             self.err.append((self.f_obj(Y)))
